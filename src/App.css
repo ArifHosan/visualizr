@@ -18,12 +18,21 @@ html, body {
 .header {
   height: 90px;
   line-height: 64px;
-  background-color: #fff;
+  display: flex;
+  .logo img {
+    height: 64px;
+    margin: 16px;
+  }
+  h2 {
+    color: #fff;
+  }
 }
 
 .sider {
   width: 25%;
-  /* color: white; */
+  .gap {
+    margin-top: 1.2rem;
+  }
 }
 
 .content {
@@ -31,7 +40,8 @@ html, body {
 }
 
 .footer {
-  height: 90px;
-  line-height: 64px;
+  height: 48px;
   background-color: #fff;
+  text-align: center;
 }
+
