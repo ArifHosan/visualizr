@@ -14,17 +14,17 @@ function App() {
         }}
       >
         <Flex gap="middle" wrap="wrap">
-          <Layout className="layout">
-            <CustomHeader />
-            <Layout>
-              <CustomSider />
+            <Layout className="layout">
+              <CustomHeader />
               <Layout>
-                <CustomContent />
-                <CustomFooter />
+                <CustomSider />
+                <Layout>
+                  <CustomContent />
+                  <CustomFooter />
+                </Layout>
               </Layout>
             </Layout>
-          </Layout>
-        </Flex>
+          </Flex>
       </ConfigProvider>
     </>
   );
