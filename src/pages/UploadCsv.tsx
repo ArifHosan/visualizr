@@ -1,52 +1,88 @@
+import { CaretRightOutlined, InboxOutlined } from "@ant-design/icons";
 import {
-  CaretRightOutlined,
-  InboxOutlined,
-  NodeExpandOutlined,
-} from "@ant-design/icons";
-import { Button, Flex, message, Upload, UploadFile, UploadProps } from "antd";
+  Button,
+  Checkbox,
+  Flex,
+  Upload,
+  UploadFile,
+  UploadProps,
+  notification,
+} from "antd";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { addCsvData } from "../services/indexDbService";
 
 const { Dragger } = Upload;
 
-type Props = {
-  onUpload: (file: UploadFile) => void;
-}
-
-function UploadCsv({ onUpload }: Props) {
-  const fileList: Array<UploadFile> = [];
+function UploadCsv() {
+  const navigate = useNavigate();
+  const [checked, setChecked] = useState(false);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  // const fileList: Array<UploadFile> = [];
   const props: UploadProps = {
     name: "file",
     multiple: false,
-    // action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        // console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
     beforeUpload(file) {
-      console.log("Before upload", file);
+      // console.log("Before upload", file);
       fileList.length = 0;
       fileList.push(file);
+      setFileList([...fileList]);
+      // readFile(file);
       return false;
     },
-    onDrop(e) {
-      // console.log("Dropped files", e.dataTransfer.files);
-    },
     listType: "picture",
-    // fileList: fileList,
     showUploadList: {
       showRemoveIcon: false,
     },
   };
+  const readFile = (file: UploadFile) => {
+    console.log("Reading file", file);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      const rows = text.split("\n");
+      let header: string[] = [];
+      if (checked) {
+        header = rows[0].split(",");
+        rows.shift();
+      } else {
+        header = Array.from(
+          { length: rows[0].split(",").length },
+          (_, i) => `Column ${i + 1}`
+        );
+      }
+      const data = rows.map((row) => {
+        const items = row.split(",");
+        const obj: any = {};
+        header.forEach((h, i) => {
+          obj[h] = items[i];
+        });
+        return obj;
+      });
+      console.log(data);
+      addCsvData({
+        fileName: file.name,
+        size: file.size || 0,
+        type: file.type || "",
+        data: JSON.stringify(data),
+      });
+      navigate("/", { state: { fromUpload: true }});
+    };
+    reader.readAsText(file);
+  };
 
   const onNext = () => {
-    onUpload(fileList[0]);
-  }
+    // onUpload(fileList[0]);
+    if (fileList.length == 1) {
+      readFile(fileList[0]);
+      // navigate("");
+    }
+  };
+  const onCheck = (e: any) => {
+    // console.log(`checked = ${e.target.checked}`);
+    setChecked(e.target.checked);
+  };
 
   return (
     <>
@@ -76,6 +112,7 @@ function UploadCsv({ onUpload }: Props) {
           vertical
           style={{ padding: 24, marginTop: 50 }}
         >
+          <Checkbox onChange={onCheck}>Treat first row as header</Checkbox>
           <Button type="primary" size="large" onClick={onNext}>
             <CaretRightOutlined /> Next
           </Button>

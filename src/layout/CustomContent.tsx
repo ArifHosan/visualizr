@@ -4,13 +4,22 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 
-import Home from "../pages/Home";
+import ListFiles from "../pages/ListFiles";
+import UploadCsv from "../pages/UploadCsv";
 
 function CustomContent() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: <ListFiles />,
+    },
+    {
+      path: "/list",
+      element: <ListFiles />,
+    },
+    {
+      path: "/upload-csv",
+      element: <UploadCsv />,
     },
   ]);
 

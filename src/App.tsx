@@ -1,11 +1,28 @@
-import { ConfigProvider, Flex, Layout, theme } from "antd";
+import { ConfigProvider, notification, theme } from "antd";
 import "./App.css";
-import CustomHeader from "./layout/CustomHeader";
-import CustomSider from "./layout/CustomSider";
-import CustomContent from "./layout/CustomContent";
-import CustomFooter from "./layout/CustomFooter";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import ListFiles from "./pages/ListFiles";
+import UploadCsv from "./pages/UploadCsv";
+import CustomLayout from "./layout/CustomLayout";
 
 function App() {
+  const [api, contextHolder] = notification.useNotification();
+  const router = createBrowserRouter([
+    {
+      element: <CustomLayout />,
+      children: [
+        {
+          path: "/",
+          element: <ListFiles />,
+        },
+        {
+          path: "/upload-csv",
+          element: <UploadCsv />,
+        },
+      ],
+    },
+  ]);
+
   return (
     <>
       <ConfigProvider
@@ -13,18 +30,8 @@ function App() {
           algorithm: theme.defaultAlgorithm,
         }}
       >
-        <Flex gap="middle" wrap="wrap">
-            <Layout className="layout">
-              <CustomHeader />
-              <Layout>
-                <CustomSider />
-                <Layout>
-                  <CustomContent />
-                  <CustomFooter />
-                </Layout>
-              </Layout>
-            </Layout>
-          </Flex>
+        {contextHolder}
+        <RouterProvider router={router} />
       </ConfigProvider>
     </>
   );
