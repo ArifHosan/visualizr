@@ -17,7 +17,8 @@ const { Dragger } = Upload;
 function UploadCsv() {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile<File>[]>([]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   // const fileList: Array<UploadFile> = [];
   const props: UploadProps = {
     name: "file",
@@ -34,9 +35,13 @@ function UploadCsv() {
     showUploadList: {
       showRemoveIcon: false,
     },
+    onChange(file) {
+      const newFile = file.file as unknown as File;
+      setSelectedFile(newFile);
+    }
   };
-  const readFile = (file: UploadFile) => {
-    console.log("Reading file", file);
+  const readFile = (file: File) => {
+    // console.log("Reading file", file);
     const reader = new FileReader();
     reader.onload = (e) => {
       const text = e.target?.result as string;
@@ -68,14 +73,13 @@ function UploadCsv() {
       });
       navigate("/dashboard", { state: { fromUpload: true }});
     };
-    reader.readAsText(file.originFileObj as Blob);
+    reader.readAsText(file);
   };
 
   const onNext = () => {
     // onUpload(fileList[0]);
-    if (fileList.length == 1) {
-      readFile(fileList[0]);
-      // navigate("");
+    if (fileList.length == 1 && selectedFile) {
+      readFile(selectedFile);
     }
   };
   const onCheck = (e: any) => {
@@ -86,7 +90,7 @@ function UploadCsv() {
   return (
     <>
       <Flex vertical gap="middle">
-        <h1>Home</h1>
+        <h1>Upload CSV</h1>
         <div style={{ height: "40vh" }}>
           <Dragger
             {...props}

@@ -10,13 +10,13 @@ function CustomSider() {
             key: "1",
             label: "Home",
             icon: <HomeOutlined />,
-            link: "/",
+            link: "",
         },
         {
             key: "2",
             label: "Dashboard",
             icon: <BarsOutlined />,
-            link: "/dashboard",
+            link: "dashboard",
         },
         {
             key: "3",

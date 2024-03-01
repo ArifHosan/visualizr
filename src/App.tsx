@@ -25,7 +25,7 @@ function App() {
           element: <UploadCsv />,
         },
         {
-          path: "edit-csv/:id",
+          path: "/edit-csv/:id",
           element: <TableView />,
         }
       ],

@@ -1,10 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../services/db";
 import { Button, Card, Col, Flex, Row, notification } from "antd";
-import {
-  DeleteOutlined,
-  UploadOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -54,7 +51,7 @@ function ListFiles() {
       description: "File deleted successfully",
       placement: "topRight",
     });
-  }
+  };
 
   useEffect(() => {
     // console.log(location.state);
@@ -99,14 +96,23 @@ function ListFiles() {
                 bordered={false}
                 title={file.fileName}
                 actions={[
-                  <Button type="primary" danger onClick={() => {deleteFile(file.id)}}>
+                  <Button
+                    type="primary"
+                    danger
+                    onClick={() => {
+                      deleteFile(file.id);
+                    }}
+                  >
                     <DeleteOutlined />
                     Delete
                   </Button>,
                 ]}
-                onClick={() => navigate(`/edit-csv/${file.id}`)}
               >
-                <Flex vertical justify="space-between">
+                <Flex
+                  vertical
+                  justify="space-between"
+                  onClick={() => navigate(`/edit-csv/${file.id}`)}
+                >
                   <h4>Size: {formatFileSize(file.size)}</h4>
                   <h4>Type: {file.type}</h4>
                   <h4>Uploaded on: {getRelativeTime(file.timestamp || 0)}</h4>
