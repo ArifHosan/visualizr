@@ -1,6 +1,6 @@
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { BookOutlined, HomeOutlined } from '@ant-design/icons';
+import { BarsOutlined, BookOutlined, HomeOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 
 function CustomSider() {
@@ -8,16 +8,22 @@ function CustomSider() {
     const items = [
         {
             key: "1",
-            label: "Dashboard",
+            label: "Home",
             icon: <HomeOutlined />,
             link: "/",
         },
         {
             key: "2",
+            label: "Dashboard",
+            icon: <BarsOutlined />,
+            link: "/dashboard",
+        },
+        {
+            key: "3",
             label: "Upload CSV",
             icon: <BookOutlined />,
             link: "upload-csv",
-        }
+        },
       ];
     const handleMenuClick = (e: any) => {
         const item = items.find((i) => i.key === e.key);

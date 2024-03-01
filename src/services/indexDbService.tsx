@@ -8,3 +8,7 @@ export const addCsvData = async (csvData: CsvData) => {
 export const deleteCsvData = async (id: number) => {
     await db.csvData.delete(id);
 }
+
+export const updateCsvData = async (id: number, csvData: CsvData) => {
+    await db.csvData.update(id, csvData);
+}

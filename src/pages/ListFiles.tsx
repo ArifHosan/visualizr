@@ -57,7 +57,7 @@ function ListFiles() {
   }
 
   useEffect(() => {
-    console.log(location.state);
+    // console.log(location.state);
     const fromUpload = location.state?.fromUpload as boolean;
     if (fromUpload) {
       api.success({
@@ -96,17 +96,15 @@ function ListFiles() {
             <Col span={8} key={file.id} className="gutter-row">
               <Card
                 hoverable
-                // key={file.id}
                 bordered={false}
-                // style={{ width: 300 }}
                 title={file.fileName}
                 actions={[
-                  // <Button type="primary"><EditOutlined /></Button>,
                   <Button type="primary" danger onClick={() => {deleteFile(file.id)}}>
                     <DeleteOutlined />
                     Delete
                   </Button>,
                 ]}
+                onClick={() => navigate(`/edit-csv/${file.id}`)}
               >
                 <Flex vertical justify="space-between">
                   <h4>Size: {formatFileSize(file.size)}</h4>

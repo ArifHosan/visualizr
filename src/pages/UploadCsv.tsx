@@ -66,7 +66,7 @@ function UploadCsv() {
         type: file.type || "",
         data: JSON.stringify(data),
       });
-      navigate("/", { state: { fromUpload: true }});
+      navigate("/dashboard", { state: { fromUpload: true }});
     };
     reader.readAsText(file.originFileObj as Blob);
   };
