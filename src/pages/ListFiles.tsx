@@ -3,10 +3,9 @@ import { db } from "../services/db";
 import { Button, Card, Col, Flex, Row, notification } from "antd";
 import {
   DeleteOutlined,
-  EditOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { useNavigate, Route, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 function ListFiles() {

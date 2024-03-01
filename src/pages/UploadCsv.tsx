@@ -6,7 +6,6 @@ import {
   Upload,
   UploadFile,
   UploadProps,
-  notification,
 } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +68,7 @@ function UploadCsv() {
       });
       navigate("/", { state: { fromUpload: true }});
     };
-    reader.readAsText(file);
+    reader.readAsText(file.originFileObj as Blob);
   };
 
   const onNext = () => {
