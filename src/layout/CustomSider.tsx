@@ -32,7 +32,7 @@ function CustomSider() {
         }
     }
     return (
-        <Sider collapsible className="sider">
+        <Sider breakpoint="lg" collapsible className="sider">
             <Menu className="gap" theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onClick={handleMenuClick} />
         </Sider>
     );

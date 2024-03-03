@@ -40,7 +40,7 @@ const Home: React.FC = () => {
             </a>
           </p>
           <h3>Technologies:</h3>
-          <Flex gap={"middle"}>
+          <Flex wrap="wrap" gap={"middle"} align="center" justify="space-around">
             <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"></img>
             <img src="https://img.shields.io/badge/Ant_Design-0170FE?style=for-the-badge&logo=ant-design&logoColor=white"></img>
             <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></img>

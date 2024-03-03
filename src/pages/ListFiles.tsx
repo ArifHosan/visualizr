@@ -84,13 +84,13 @@ function ListFiles() {
       </Flex>
       <Row
         gutter={[
-          { xs: 8, sm: 16, md: 24, lg: 32 },
+          { xs: 0, sm: 16, md: 16, lg: 32 },
           { xs: 8, sm: 16, md: 24, lg: 32 },
         ]}
       >
         {csvData?.map((file) => {
           return (
-            <Col span={8} key={file.id} className="gutter-row">
+            <Col xs={{flex: '100%'}} sm={{flex: '50%'}} lg={{flex: '33%'}} key={file.id} className="gutter-row">
               <Card
                 hoverable
                 bordered={false}

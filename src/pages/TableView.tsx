@@ -169,11 +169,13 @@ const TableView: React.FC = () => {
           )}
         </div>
       </Flex>
-      <Flex gap="middle" align="center" justify="space-between">
+      <Flex gap="middle" align="center" justify="space-between" wrap="wrap">
         <Table
           size="large"
           columns={columns}
           dataSource={tableData}
+          scroll={{x: 700}} 
+          sticky 
           rowKey={(record) => record.__id}
           style={{ width: "100%" }}
         ></Table>
