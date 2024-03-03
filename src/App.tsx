@@ -6,6 +6,7 @@ import UploadCsv from "./pages/UploadCsv";
 import CustomLayout from "./layout/CustomLayout";
 import TableView from "./pages/TableView";
 import Home from "./pages/Home";
+import Graph from "./pages/Graph";
 
 function App() {
   const router = createBrowserRouter([
@@ -27,7 +28,11 @@ function App() {
         {
           path: "/edit-csv/:id",
           element: <TableView />,
-        }
+        },
+        {
+          path: "/generate-graph/:id",
+          element: <Graph />,
+        },
       ],
     },
   ]);

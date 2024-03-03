@@ -1,7 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../services/db";
 import { Button, Card, Col, Flex, Row, notification } from "antd";
-import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
+import { AreaChartOutlined, DeleteOutlined, EditOutlined, EditTwoTone, UploadOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -94,8 +94,24 @@ function ListFiles() {
               <Card
                 hoverable
                 bordered={false}
-                title={file.fileName}
+                title={
+                  <Flex justify="space-between">
+                    <h4
+                    style={{ textOverflow: "ellipsis", overflow: "hidden" }}
+                  >
+                    {file.fileName}
+                  </h4>
+                  <EditTwoTone />
+                  </Flex>
+                }
                 actions={[
+                  <Button
+                    type="primary"
+                    onClick={() => navigate(`/generate-graph/${file.id}`)}
+                  >
+                    <AreaChartOutlined />
+                    Plot
+                  </Button>,
                   <Button
                     type="primary"
                     danger
